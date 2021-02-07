@@ -10,7 +10,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -33,6 +32,9 @@ public class Sample1Application implements CommandLineRunner {
 
 	@Autowired
 	MyConfigs myConfigs;
+
+	@Autowired
+	MyInterfaceImpl myInterface;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -96,6 +98,20 @@ public class Sample1Application implements CommandLineRunner {
 		final Integer newConfig2 = myConfigs.getNewConfig2();
 		System.out.println("newConfig2 = " + newConfig2);
 
+		//interface
+
+		myInterface.defaultMethod();
+		myInterface.foo1();
+		myInterface.foo2();
+
+		System.out.println("hariom = " + myInterface.defaultMethod2("hariom"));
+		System.out.println("round off + set scale = " + myInterface.defaultMethod3(BigDecimal.valueOf(123.123)));
+		final BigDecimal negate = BigDecimal.valueOf(123.123).negate();
+		System.out.println("negate = " + negate);
+		System.out.println(negate.compareTo(BigDecimal.valueOf(0)));
+
+		final BigDecimal decimal1 = MyInterface.staticMethod(BigDecimal.valueOf(123.123));
+		System.out.println("via static method = " + decimal1);
 
 	}
 
